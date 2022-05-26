@@ -1,0 +1,32 @@
+---
+# yamllint disable rule:truthy
+name: Lint
+
+env:
+  SHELLCHECK_OPTS: -e SC1008 -s bash
+
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["main"]
+
+jobs:
+  yamllint:
+    runs-on: ubuntu-latest
+    name: YAMLLint
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+
+      - name: Run YAMLLint
+        uses: frenck/action-yamllint@v1.1
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    name: ShellCheck
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+
+      - name: Run linter

@@ -1,0 +1,22 @@
+---
+name: "Speedtest"
+description: "Speedtest-cli binary adapter"
+version: 0.0.1
+slug: "speedtest_adapter"
+init: false
+boot: manual
+startup: once
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+homeassistant_api: true
+options:
+  accept_eula: false
+  accept_rgpd: false
+  server_id: null
+schema:
+  accept_eula: bool
+  accept_rgpd: bool
+  server_id: int?
