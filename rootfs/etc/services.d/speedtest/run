@@ -3,10 +3,10 @@
 export ACCEPT_EULA=$(bashio::config 'accept_eula')
 export ACCEPT_RGPD=$(bashio::config 'accept_rgpd')
 
-#if [[ "$ACCEPT_EULA" = "true" && "$ACCEPT_RGPD" = "true" ]]; then
-#    bashio::log.fatal "Licenses were not accepted!"
-#    exit 1
-#fi
+if [[ "$ACCEPT_EULA" != "true" || "$ACCEPT_RGPD" != "true" ]]; then
+    bashio::log.fatal "Licenses were not accepted!"
+    exit 1
+fi
 
 function post_result() {
     local sensor=${1}
@@ -14,16 +14,18 @@ function post_result() {
     local friendlyname=${3}
     local state=${4}
 
-    local data="{'state':$state, 'attributes':{'unit_of_measurement':'$unitmeasure','friendly_name':'$friendlyname','icon':'mdi:speedometer'}"
+    local data="{\"state\":$state, \"attributes\":{\"unit_of_measurement\":\"$unitmeasure\",\"friendly_name\":\"$friendlyname\",\"icon\":\"mdi:speedometer\"}}"
     
-    bashio::api.supervisor POST "/core/api/states/sensor.speedtest_$sensor"  true "$data"
+    bashio::api.supervisor POST "/core/api/states/sensor.speedtest_$sensor" "$data"
+
+    return "$friendlyname updated"
 }
 
 bashio::log.info "Starting speed test"
 
 if bashio::config.exists 'server_id'; then
-    SERVER_ID=$(bashio::config 'server_id')
-    export RESULT=$(/usr/bin/speedtest --format=json --precision=4 --accept-license --accept-gdpr "$SERVER_ID")
+    export SERVER_ID=$(bashio::config 'server_id')
+    export RESULT=$(/usr/bin/speedtest --format=json --precision=4 --accept-license --accept-gdpr -s "$SERVER_ID")
 else
     export RESULT=$(/usr/bin/speedtest --format=json --precision=4 --accept-license --accept-gdpr)
 fi
@@ -38,6 +40,6 @@ bashio::log.info "Upload: $up_load_speed"
 bashio::log.info "Ping: $ping_latency"
 bashio::log.info "--------- ---------"
 
-post_result "download" "Mbit/s" "Speedtest Download" down_load_speed
-post_result "upload" "Mbit/s" "Speedtest Upload" up_load_speed
-post_result "ping" "ms" "Speedtest Ping" ping_latency
+post_result "download" "Mbit/s" "Speedtest Download" $down_load_speed
+post_result "upload" "Mbit/s" "Speedtest Upload" $up_load_speed
+post_result "ping" "ms" "Speedtest Ping" $ping_latency

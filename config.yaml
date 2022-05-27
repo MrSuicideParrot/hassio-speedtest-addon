@@ -1,7 +1,7 @@
 ---
 name: "Speedtest"
 description: "Speedtest-cli binary adapter"
-version: 0.0.1
+version: 1.0.0
 slug: "speedtest_adapter"
 init: false
 boot: manual

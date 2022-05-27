@@ -2,4 +2,5 @@
 # ==============================================================================
 # Take down the S6 supervision tree 
 # ==============================================================================
-s6-svscanctl -t /var/run/s6/services
+foreground { redirfd -w 1 /run/s6-linux-init-container-results/exitcode echo 0 }
+/run/s6/basedir/bin/halt
