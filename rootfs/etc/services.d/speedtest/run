@@ -18,7 +18,7 @@ function post_result() {
     
     bashio::api.supervisor POST "/core/api/states/sensor.speedtest_$sensor" "$data"
 
-    return "$friendlyname updated"
+    bashio::log.info "$friendlyname updated"
 }
 
 bashio::log.info "Starting speed test"
