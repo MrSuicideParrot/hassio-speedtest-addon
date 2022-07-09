@@ -1,0 +1,38 @@
+name: 'Build addon'
+
+on:
+  push:
+    tags:        
+      - v*
+    branches:
+      - "main"
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: mrsuicideparrot/hassio-speedtest-addon
+
+jobs:
+  build:
+    name: 'Build'
+    runs-on: ubuntu-latest
+    steps:
+      - 
+        name: Checkout the repository
+        uses: actions/checkout@v3
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - 
+        name: Publish
+        uses: home-assistant/builder@master
+        with:
+          args: |
+            --armhf --amd64 --aarch64 \
+            --target speedtest \
+            --docker-hub ghcr.io \
+            -i ${{ env.IMAGE_NAME }}-{arch}

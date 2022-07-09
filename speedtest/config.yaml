@@ -11,6 +11,7 @@ arch:
   - amd64
   - armhf
   - armv7
+  - i386
 homeassistant_api: true
 options:
   accept_eula: false
@@ -20,3 +21,4 @@ schema:
   accept_eula: bool
   accept_rgpd: bool
   server_id: int?
+image: ghcr.io/mrsuicideparrot/hassio-speedtest-addon-{arch}

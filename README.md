@@ -1,1 +1,2 @@
-# speedtest-addon
+# Speedtest Home Assistant Addon
+
