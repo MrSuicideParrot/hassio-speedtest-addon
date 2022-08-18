@@ -1,6 +1,6 @@
 ---
 # yamllint disable rule:truthy
-name: Lint
+name: 'Lint'
 
 on:
   pull_request:

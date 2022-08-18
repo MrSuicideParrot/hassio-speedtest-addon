@@ -1,10 +1,11 @@
+---
+# yamllint disable rule:truthy
 name: 'Build addon'
 
 on:
   push:
     branches:
       - "main"
-  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
@@ -15,7 +16,7 @@ jobs:
     name: 'Build'
     runs-on: ubuntu-latest
     steps:
-      - 
+      -
         name: Checkout the repository
         uses: actions/checkout@v3
       -
@@ -25,7 +26,7 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - 
+      -
         name: Publish
         uses: home-assistant/builder@master
         with:
