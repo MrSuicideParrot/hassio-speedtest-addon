@@ -2,8 +2,6 @@ name: 'Build addon'
 
 on:
   push:
-    tags:        
-      - v*
     branches:
       - "main"
   workflow_dispatch:
@@ -32,7 +30,7 @@ jobs:
         uses: home-assistant/builder@master
         with:
           args: |
-            --armhf --amd64 --aarch64 \
+            --armhf --armv7 --amd64 --aarch64 \
             --target speedtest \
             --docker-hub ghcr.io \
             -i ${{ env.IMAGE_NAME }}-{arch}
