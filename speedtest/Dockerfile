@@ -2,10 +2,10 @@ ARG BUILD_FROM
 FROM $BUILD_FROM
 
 RUN \
-    apt update &&\
-    curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash &&\
-    apt update &&\
-    apt-get install -y speedtest &&\
-    rm -rf /var/lib/apt/lists/*
+    cd /tmp &&\
+    curl https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-$(arch).tgz -o speedtest.tgz &&\
+    tar zxvf speedtest.tgz &&\
+    mv speedtest /usr/local/bin/ &&\
+    rm -rf /tmp/*
 
 COPY rootfs /
