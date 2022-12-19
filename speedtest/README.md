@@ -1,15 +1,3 @@
 # Speedtest Home Assistant Addon
 
-
-
-```
-You may only use this Speedtest software and information generated
-from it for personal, non-commercial use, through a command line
-interface on a personal computer. Your use of this software is subject
-to the End User License Agreement, Terms of Use and Privacy Policy at
-these URLs:
-
-	https://www.speedtest.net/about/eula
-	https://www.speedtest.net/about/terms
-	https://www.speedtest.net/about/privacy
-```
+Home Assistant has a native [integration with Speedtest.net](https://www.home-assistant.io/integrations/speedtestdotnet/). However, it uses a third-party speedtest implementation in python that may not produce accurate measures. This addon aims to integrate the [official speedtest binary](https://www.speedtest.net/apps/cli) with Home Assistant to mitigate this problem.

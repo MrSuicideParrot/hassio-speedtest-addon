@@ -1,8 +1,8 @@
 ---
 name: "Speedtest"
-description: "Speedtest-cli binary adapter"
+description: "Speedtest-cli addon"
 version: 1.0.0
-slug: "speedtest_adapter"
+slug: "speedtest_addon"
 init: false
 boot: manual
 startup: once
@@ -20,4 +20,5 @@ schema:
   accept_eula: bool
   accept_rgpd: bool
   server_id: int?
+url: https://github.com/MrSuicideParrot/hassio-speedtest-addon
 image: ghcr.io/mrsuicideparrot/hassio-speedtest-addon-{arch}
