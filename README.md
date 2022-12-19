@@ -7,17 +7,19 @@ There have been previous attempts to do this, but imply the installation of cust
 ## Installation
 1. Install the [official speedtest integration](https://www.home-assistant.io/integrations/speedtestdotnet/)
 2. Disable automatic runs of this integration
-	. Go to the `integrations` page of your Home Assistant instance and click in `CONFIGURE` in the SpeedTest integration.
-	[![speedtest integration page](images/speedtest-integration-page.png)]
-	. Disable the automatic executions of this integration configuring `-1` as the **Update freqency** and check **Disable auto update**.
-	[![speedtest options page](images/speedtest-options.png)]
+	* Go to the `integrations` page of your Home Assistant instance and click in `CONFIGURE` in the SpeedTest integration.
+
+		![speedtest integration page](images/speedtest-integration-page.png)
+	* Disable the automatic execution of this integration by configuring `-1` as the **Update freqency** and check **Disable auto update**.
+	
+		![speedtest options page](images/speedtest-options.png)
 3. Click the Home Assistant My button below to open the add-on on your Home
    Assistant instance.
    [![Open this add-on in your Home Assistant instance.][addon-badge]][addon]
 4. Add this addon repository to your addon store.
-	. Click on the 3 dots button on the top right of your Addon store
-	. Click on **Repositories**
-	. You'll see a prompt called "Manage add-on repositories", you should put your repository's url (https://github.com/MrSuicideParrot/hassio-speedtest-addon) in the field **Add**.
+	* Click on the 3 dots button on the top right of your Addon store
+	* Click on **Repositories**
+	* You'll see a prompt called "Manage add-on repositories", you should put your repository's url (https://github.com/MrSuicideParrot/hassio-speedtest-addon) in the field **Add**.
 4. Install the SpeedTest addon.
 
 ## Configuration
