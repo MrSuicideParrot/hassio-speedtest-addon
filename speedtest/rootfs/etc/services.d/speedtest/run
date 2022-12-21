@@ -25,9 +25,9 @@ bashio::log.info "Starting speed test"
 
 if bashio::config.exists 'server_id'; then
     export SERVER_ID=$(bashio::config 'server_id')
-    export RESULT=$(/usr/bin/speedtest --format=json --precision=4 --accept-license --accept-gdpr -s "$SERVER_ID")
+    export RESULT=$(/usr/local/bin/speedtest --format=json --precision=4 --accept-license --accept-gdpr -s "$SERVER_ID")
 else
-    export RESULT=$(/usr/bin/speedtest --format=json --precision=4 --accept-license --accept-gdpr)
+    export RESULT=$(/usr/local/bin/speedtest --format=json --precision=4 --accept-license --accept-gdpr)
 fi
 
 export down_load_speed=$(($(bashio::jq $RESULT .download.bandwidth)*8/1000000))
