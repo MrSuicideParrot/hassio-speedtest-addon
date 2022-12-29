@@ -2,7 +2,7 @@
 
 Home Assistant has a native [integration with Speedtest.net](https://www.home-assistant.io/integrations/speedtestdotnet/). However, it uses a third-party speedtest implementation in python that may not produce accurate measures. This addon aims to integrate the [official speedtest binary](https://www.speedtest.net/apps/cli) with Home Assistant to mitigate this problem.
 
-There have been previous attempts to do this, but imply the installation of custom scripts and the `speedtest-cli` directly into the operating system. This 
+There have been previous attempts to do this, but imply the installation of custom scripts and the `speedtest-cli` directly into the operating system. This project overcomes this issue by creating an add-on that doesn't imply any modification in the underlying system.
 
 ## Installation
 1. Install the [official speedtest integration](https://www.home-assistant.io/integrations/speedtestdotnet/)
@@ -19,7 +19,8 @@ There have been previous attempts to do this, but imply the installation of cust
 	* Click on the 3 dots button on the top right of your Addon store
 	* Click on **Repositories**
 	* You'll see a prompt called "Manage add-on repositories", you should put your repository's url (https://github.com/MrSuicideParrot/hassio-speedtest-addon) in the field **Add**.
-4. Install the SpeedTest addon.
+5. Install the SpeedTest addon.
+6. Create an automation that runs this addon as often as you want.
 
 ## Configuration
 
