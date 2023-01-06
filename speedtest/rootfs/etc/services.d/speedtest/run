@@ -8,7 +8,7 @@ if [[ "$ACCEPT_EULA" != "true" || "$ACCEPT_RGPD" != "true" ]]; then
     exit 1
 fi
 
-if [[ $(bashio::config 'debug') == "true" ]]
+if [[ $(bashio::config 'debug') == "true" ]]; then
     bashio::log.level "debug"
 fi
 
