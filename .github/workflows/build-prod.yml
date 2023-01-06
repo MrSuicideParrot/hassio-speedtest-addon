@@ -1,13 +1,11 @@
 ---
 # yamllint disable rule:truthy
-name: 'Build addon dev'
+name: 'Build addon production'
 
 on:
   push:
-    branches:
-      - "main"
-    paths:
-      - speedtest/**
+    tags:
+      - '*'
 
 env:
   REGISTRY: ghcr.io
@@ -15,18 +13,24 @@ env:
 
 jobs:
   build:
-    name: 'Build dev'
+    name: 'Build release'
     runs-on: ubuntu-latest
     steps:
       -
         name: Checkout the repository
         uses: actions/checkout@v3
       -
+        name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      -
         name: Publish
         uses: home-assistant/builder@master
         with:
           args: |
-            --test \
             --armhf --armv7 --amd64 --aarch64 \
             --target speedtest \
             --docker-hub ghcr.io \
