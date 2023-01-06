@@ -36,9 +36,9 @@ fi
 
 bashio::log.debug "Speedtest output: ${RESULT}"
 
-export down_load_speed=$(($(bashio::jq $RESULT .download.bandwidth)*8/1000000))
-export up_load_speed=$(($(bashio::jq $RESULT .upload.bandwidth)*8/1000000))
-export ping_latency=$(bashio::jq $RESULT .ping.latency)
+export down_load_speed=$(($(echo $RESULT | jq .download.bandwidth)*8/1000000))
+export up_load_speed=$(($(echo $RESULT | jq .upload.bandwidth)*8/1000000))
+export ping_latency=$(echo $RESULT | jq .ping.latency)
 
 bashio::log.info "--------- Speed test ended ---------"
 bashio::log.info "Download measured: $down_load_speed"
