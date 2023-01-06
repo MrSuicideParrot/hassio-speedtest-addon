@@ -21,5 +21,6 @@ schema:
   accept_eula: bool
   accept_rgpd: bool
   server_id: int?
+  debug: bool
 url: https://github.com/MrSuicideParrot/hassio-speedtest-addon
 image: ghcr.io/mrsuicideparrot/hassio-speedtest-addon-{arch}
