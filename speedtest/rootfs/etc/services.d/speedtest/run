@@ -8,6 +8,10 @@ if [[ "$ACCEPT_EULA" != "true" || "$ACCEPT_RGPD" != "true" ]]; then
     exit 1
 fi
 
+if [[ $(bashio::config 'debug') == "true" ]]
+    bashio::log.level "debug"
+fi
+
 function post_result() {
     local sensor=${1}
     local unitmeasure=${2}
@@ -29,6 +33,8 @@ if bashio::config.exists 'server_id'; then
 else
     export RESULT=$(/usr/local/bin/speedtest --format=json --precision=4 --accept-license --accept-gdpr)
 fi
+
+bashio::log.debug "Speedtest output: ${RESULT}"
 
 export down_load_speed=$(($(bashio::jq $RESULT .download.bandwidth)*8/1000000))
 export up_load_speed=$(($(bashio::jq $RESULT .upload.bandwidth)*8/1000000))
