@@ -7,12 +7,23 @@ There have been previous attempts to do this, but imply the installation of cust
 ## Installation
 1. Install the [official speedtest integration](https://www.home-assistant.io/integrations/speedtestdotnet/)
 2. Disable automatic runs of this integration
-	* Go to the `integrations` page of your Home Assistant instance and click in `CONFIGURE` in the SpeedTest integration.
+	1. Go to the `integrations` page of your Home Assistant instance and click in `CONFIGURE` in the SpeedTest integration.
 
 		![speedtest integration page](images/speedtest-integration-page.png)
-	* Disable the automatic execution of this integration by configuring `-1` as the **Update freqency** and check **Disable auto update**.
-	
+
+	2. Click on the three dots the SpeedTest integration card.
+	3. Click on `System options`.
+
 		![speedtest options page](images/speedtest-options.png)
+	4. Disable the automatic execution of this integration by ensuring that `Enable polling for updates` is disabled.
+
+		![speedtest polling setting](images/speedtest-polling.png)
+		> If you don't see this option ensure that your HomeAssistant is updated and you have refreshed your page after installing the SpeedTest integration.
+
+	5. You should see the SpeedTest integration card with a symbol on the top right that indicates that polling is disabled.
+
+		![speedtest polling disabled](images/speedtest-configured.png)
+
 3. Click the Home Assistant My button below to open the add-on on your Home Assistant instance.
 
 4. Add this addon repository to your addon store.
