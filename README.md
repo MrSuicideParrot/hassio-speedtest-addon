@@ -42,7 +42,7 @@ accept_rgpd: true
 server_id: null
 ```
 
-In this case, the addon would choose a random SpeedTest server each time it runs. It is recommended to specify a `server_id`  to have comparable meaasurements. You can use this [page](https://sparanoid.com/lab/speedtest-list/) to explore the list of available servers. (The `server_id`is an integrer.)
+In this case, the addon would choose a random SpeedTest server each time it runs. It is recommended to specify a `server_id`  to have comparable meaasurements. The `server_id`is an integrer. You can use this command to identify servers that are close to you: `curl https://c.speedtest.net/speedtest-servers-static.php`. The `server_id` is called `id` in the returned XML table.  (If you access this link with your web browser instead of using curl, please have in mind that it doesn't respond an html page, but rather a xml table. You can see the results by view the source-code of the page.)
 
 ## Licensing
 
