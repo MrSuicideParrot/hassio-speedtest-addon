@@ -18,7 +18,7 @@ function post_result() {
     local friendlyname=${3}
     local state=${4}
 
-    local data="{\"state\":$state, \"attributes\":{\"unit_of_measurement\":\"$unitmeasure\",\"friendly_name\":\"$friendlyname\",\"icon\":\"mdi:speedometer\"}}"
+    local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"friendly_name\":\"$friendlyname\",\"icon\":\"mdi:speedometer\"}}"
     
     bashio::api.supervisor POST "/core/api/states/sensor.speedtest_$sensor" "$data"
 
