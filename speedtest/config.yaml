@@ -15,12 +15,11 @@ homeassistant_api: true
 options:
   accept_eula: false
   accept_rgpd: false
-  server_id: null
   debug: false
 schema:
   accept_eula: bool
   accept_rgpd: bool
   server_id: int?
-  debug: bool
+  debug: bool?
 url: https://github.com/MrSuicideParrot/hassio-speedtest-addon
 image: ghcr.io/mrsuicideparrot/hassio-speedtest-addon-{arch}
