@@ -1,7 +1,14 @@
 #!/usr/bin/with-contenv bashio
 
+set -e
+
 export ACCEPT_EULA=$(bashio::config 'accept_eula')
 export ACCEPT_RGPD=$(bashio::config 'accept_rgpd')
+
+if [[ $(bashio::config 'print_closest_servers') == "true" ]]; then
+    /usr/local/bin/speedtest -L --accept-license --accept-gdpr
+    exit 0
+fi
 
 if [[ "$ACCEPT_EULA" != "true" || "$ACCEPT_RGPD" != "true" ]]; then
     bashio::log.fatal "Licenses were not accepted!"

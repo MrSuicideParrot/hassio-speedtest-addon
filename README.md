@@ -35,14 +35,33 @@ There have been previous attempts to do this, but imply the installation of cust
 
 ## Configuration
 
-Example add-on configuration:
+Example basic add-on configuration:
 ```yaml
 accept_eula: true
 accept_rgpd: true
-server_id: null
 ```
 
-In this case, the addon would choose a random SpeedTest server each time it runs. It is recommended to specify a `server_id`  to have comparable meaasurements. The `server_id`is an integrer. You can use this command to identify servers that are close to you: `curl https://c.speedtest.net/speedtest-servers-static.php`. The `server_id` is called `id` in the returned XML table.  (If you access this link with your web browser instead of using curl, please have in mind that it doesn't respond an html page, but rather a xml table. You can see the results by view the source-code of the page.)
+In this case, the addon would choose a random SpeedTest server each time it runs. It is recommended to specify a `server_id`  to have comparable measurements. The `server_id`is an integrer. 
+
+You can run this add-on with following the configuration to see in the addon log which servers are the closest to you:
+
+```yaml
+accept_eula: true
+accept_rgpd: true
+print_closest_servers: true
+```
+
+After that, you should remove the `print_closest_servers` and add the `server_id` with the id of your choice.
+
+An example of a configuration with a configured `server_id` is:
+```yaml
+accept_eula: true
+accept_rgpd: true
+server_id: 48096
+```
+
+> Alternatively, you can use this command to identify servers that are close to you: `curl https://c.speedtest.net/speedtest-servers-static.php`. The `server_id` is called `id` in the returned XML table.  (If you access this link with your web browser instead of using curl, please have in mind that it doesn't respond an html page, but rather a xml table. You can see the results by view the source-code of the page.)
+
 
 ## Licensing
 
