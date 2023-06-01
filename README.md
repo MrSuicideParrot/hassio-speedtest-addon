@@ -31,7 +31,7 @@ There have been previous attempts to do this, but imply the installation of cust
 	* Click on **Repositories**
 	* You'll see a prompt called "Manage add-on repositories", you should put your repository's url (https://github.com/MrSuicideParrot/hassio-speedtest-addon) in the field **Add**.
 5. Install the SpeedTest addon.
-6. Create an automation that runs this addon as often as you want.
+6. Create an automation that runs this addon as often as you want. Use the action service `hassio.addon_start` to start the addon `6b87c29e_speedtest_addon`.
 
 ## Configuration
 
