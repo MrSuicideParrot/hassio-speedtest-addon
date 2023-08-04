@@ -24,8 +24,11 @@ function post_result() {
     local unitmeasure=${2}
     local friendlyname=${3}
     local state=${4}
+    local serverid=${5}
+    local servername=${6}
+    local servercountry=${7}
 
-    local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"friendly_name\":\"$friendlyname\",\"icon\":\"mdi:speedometer\"}}"
+    local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"friendly_name\":\"$friendlyname\",\"icon\":\"mdi:speedometer\",\"server_name\":$servername,\"server_country\":$servercountry,\"server_id\":$serverid}}"
     
     bashio::api.supervisor POST "/core/api/states/sensor.speedtest_$sensor" "$data"
 
@@ -46,13 +49,19 @@ bashio::log.debug "Speedtest output: ${RESULT}"
 export down_load_speed=$(printf %.2f "$(($(echo $RESULT | jq .download.bandwidth)*8/10000))e-2")
 export up_load_speed=$(printf %.2f "$(($(echo $RESULT | jq .upload.bandwidth)*8/10000))e-2")
 export ping_latency=$(echo $RESULT | jq .ping.latency)
+export used_server_id=$(echo $RESULT | jq .server.id)
+export used_server_name=$(echo $RESULT | jq .server.location) # This is exact the same behaviour of the native HomeAssistant speedtest
+export used_server_country=$(echo $RESULT | jq .server.country)
 
 bashio::log.info "--------- Speed test ended ---------"
 bashio::log.info "Download measured: $down_load_speed"
 bashio::log.info "Upload: $up_load_speed"
 bashio::log.info "Ping: $ping_latency"
+bashio::log.info "Server name: $used_server_name"
+bashio::log.info "Server id: $used_server_id"
+bashio::log.info "Server country: $used_server_country"
 bashio::log.info "--------- ---------"
 
-post_result "download" "Mbit/s" "Speedtest Download" $down_load_speed
-post_result "upload" "Mbit/s" "Speedtest Upload" $up_load_speed
-post_result "ping" "ms" "Speedtest Ping" $ping_latency
+post_result "download" "Mbit/s" "Speedtest Download" $down_load_speed $used_server_id $used_server_name $used_server_country
+post_result "upload" "Mbit/s" "Speedtest Upload" $up_load_speed $used_server_id $used_server_name $used_server_country
+post_result "ping" "ms" "Speedtest Ping" $ping_latency $used_server_id $used_server_name $used_server_country
