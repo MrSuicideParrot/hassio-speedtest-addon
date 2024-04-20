@@ -22,25 +22,25 @@ fi
 function post_result() {
     local sensor=${1}
     local unitmeasure=${2}
-    local friendlyname=${3}
-    local state=${4}
-    local serverid=${5}
-    local servername=${6}
-    local servercountry=${7}
-    local bytes=${8}
+    local state=${3}
+    local serverid=${4}
+    local servername=${5}
+    local servercountry=${6}
 
 
-    if "$sensor" == "ping"; then
-    	local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"friendly_name\":\"$friendlyname\",\"icon\":\"mdi:speedometer\",\"server_name\":$servername,\"server_country\":$servercountry,\"server_id\":\"$serverid\"}}"
-    elif "$sensor" == "download"; then
-	local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"friendly_name\":\"$friendlyname\",\"icon\":\"mdi:speedometer\",\"server_name\":$servername,\"server_country\":$servercountry,\"server_id\":\"$serverid\",\"bytes_received\":$bytes}}"
+    if [ "$sensor" = "ping" ]; then
+    	local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"icon\":\"mdi:speedometer\",\"server_name\":$servername,\"server_country\":$servercountry,\"server_id\":\"$serverid\"}}"
+    elif [ "$sensor" = "download" ]; then
+    	local bytes=${7}
+	local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"icon\":\"mdi:speedometer\",\"server_name\":$servername,\"server_country\":$servercountry,\"server_id\":\"$serverid\",\"bytes_received\":$bytes}}"
     else
-	local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"friendly_name\":\"$friendlyname\",\"icon\":\"mdi:speedometer\",\"server_name\":$servername,\"server_country\":$servercountry,\"server_id\":\"$serverid\",\"bytes_sent\":$bytes}}"
+	local bytes=${7}
+	local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"icon\":\"mdi:speedometer\",\"server_name\":$servername,\"server_country\":$servercountry,\"server_id\":\"$serverid\",\"bytes_sent\":$bytes}}"
     fi
 
     bashio::api.supervisor POST "/core/api/states/sensor.speedtest_$sensor" "$data"
 
-    bashio::log.info "$friendlyname updated"
+    bashio::log.info "$sensor updated"
 }
 
 bashio::log.info "Starting speed test"
@@ -72,6 +72,6 @@ bashio::log.info "Server id: $used_server_id"
 bashio::log.info "Server country: $used_server_country"
 bashio::log.info "--------- ---------"
 
-post_result "download" "Mbit/s" "Speedtest Download" $down_load_speed $used_server_id $used_server_name $used_server_country $down_bytes
-post_result "upload" "Mbit/s" "Speedtest Upload" $up_load_speed $used_server_id $used_server_name $used_server_country $up_bytes
-post_result "ping" "ms" "Speedtest Ping" $ping_latency $used_server_id $used_server_name $used_server_country
+post_result "download" "Mbit/s" $down_load_speed $used_server_id $used_server_name $used_server_country $down_bytes
+post_result "upload" "Mbit/s" $up_load_speed $used_server_id $used_server_name $used_server_country $up_bytes
+post_result "ping" "ms" $ping_latency $used_server_id $used_server_name $used_server_country
