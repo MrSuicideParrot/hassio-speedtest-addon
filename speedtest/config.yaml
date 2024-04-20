@@ -1,7 +1,7 @@
 ---
 name: "Speedtest"
 description: "Speedtest-cli addon"
-version: 1.5.0
+version: 1.6.0
 slug: "speedtest_addon"
 init: false
 boot: manual
