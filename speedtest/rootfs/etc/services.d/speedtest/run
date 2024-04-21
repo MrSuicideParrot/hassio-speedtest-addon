@@ -29,13 +29,13 @@ function post_result() {
 
 
     if [ "$sensor" = "ping" ]; then
-    	local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"icon\":\"mdi:speedometer\",\"server_name\":$servername,\"server_country\":$servercountry,\"server_id\":\"$serverid\"}}"
+    	local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"server_name\":$servername,\"server_country\":$servercountry,\"server_id\":\"$serverid\"}}"
     elif [ "$sensor" = "download" ]; then
     	local bytes=${7}
-	local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"icon\":\"mdi:speedometer\",\"server_name\":$servername,\"server_country\":$servercountry,\"server_id\":\"$serverid\",\"bytes_received\":$bytes}}"
+	local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"server_name\":$servername,\"server_country\":$servercountry,\"server_id\":\"$serverid\",\"bytes_received\":$bytes}}"
     else
 	local bytes=${7}
-	local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"icon\":\"mdi:speedometer\",\"server_name\":$servername,\"server_country\":$servercountry,\"server_id\":\"$serverid\",\"bytes_sent\":$bytes}}"
+	local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"server_name\":$servername,\"server_country\":$servercountry,\"server_id\":\"$serverid\",\"bytes_sent\":$bytes}}"
     fi
 
     bashio::api.supervisor POST "/core/api/states/sensor.speedtest_$sensor" "$data"
