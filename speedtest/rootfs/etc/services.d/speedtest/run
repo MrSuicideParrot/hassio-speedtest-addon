@@ -72,6 +72,6 @@ bashio::log.info "Server id: $used_server_id"
 bashio::log.info "Server country: $used_server_country"
 bashio::log.info "--------- ---------"
 
-post_result "download" "Mbit/s" $down_load_speed $used_server_id $used_server_name $used_server_country $down_bytes
-post_result "upload" "Mbit/s" $up_load_speed $used_server_id $used_server_name $used_server_country $up_bytes
-post_result "ping" "ms" $ping_latency $used_server_id $used_server_name $used_server_country
+post_result "download" "Mbit/s" $down_load_speed $used_server_id "$used_server_name" "$used_server_country" $down_bytes
+post_result "upload" "Mbit/s" $up_load_speed $used_server_id "$used_server_name" "$used_server_country" $up_bytes
+post_result "ping" "ms" $ping_latency $used_server_id "$used_server_name" "$used_server_country"
