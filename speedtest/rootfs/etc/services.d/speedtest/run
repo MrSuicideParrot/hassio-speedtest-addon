@@ -25,17 +25,18 @@ function post_result() {
     local state=${3}
     local serverid=${4}
     local servername=${5}
-    local servercountry=${6}
+    local serverlocation=${6}
+    local servercountry=${7}
 
 
     if [ "$sensor" = "ping" ]; then
-    	local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"server_name\":$servername,\"server_country\":$servercountry,\"server_id\":\"$serverid\"}}"
+    	local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"server_name\":$servername,\"server_location\":$serverlocation,\"server_country\":$servercountry,\"server_id\":\"$serverid\"}}"
     elif [ "$sensor" = "download" ]; then
-    	local bytes=${7}
-	local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"server_name\":$servername,\"server_country\":$servercountry,\"server_id\":\"$serverid\",\"bytes_received\":$bytes}}"
+    	local bytes=${8}
+	local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"server_name\":$servername,\"server_location\":$serverlocation,\"server_country\":$servercountry,\"server_id\":\"$serverid\",\"bytes_received\":$bytes}}"
     else
-	local bytes=${7}
-	local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"server_name\":$servername,\"server_country\":$servercountry,\"server_id\":\"$serverid\",\"bytes_sent\":$bytes}}"
+	local bytes=${8}
+	local data="{\"state\":$state, \"attributes\":{\"state_class\":\"measurement\",\"unit_of_measurement\":\"$unitmeasure\",\"server_name\":$servername,\"server_location\":$serverlocation,\"server_country\":$servercountry,\"server_id\":\"$serverid\",\"bytes_sent\":$bytes}}"
     fi
 
     bashio::api.supervisor POST "/core/api/states/sensor.speedtest_$sensor" "$data"
@@ -60,7 +61,8 @@ export up_load_speed=$(printf %.2f "$(($(echo $RESULT | jq .upload.bandwidth)*8/
 export up_bytes=$(echo $RESULT | jq .upload.bytes)
 export ping_latency=$(echo $RESULT | jq .ping.latency)
 export used_server_id=$(echo $RESULT | jq .server.id)
-export used_server_name=$(echo $RESULT | jq .server.location) # This is exact the same behaviour of the native HomeAssistant speedtest
+export used_server_name=$(echo $RESULT | jq .server.name)
+export used_server_location=$(echo $RESULT | jq .server.location)
 export used_server_country=$(echo $RESULT | jq .server.country)
 
 bashio::log.info "--------- Speed test ended ---------"
@@ -68,10 +70,11 @@ bashio::log.info "Download measured: $down_load_speed"
 bashio::log.info "Upload: $up_load_speed"
 bashio::log.info "Ping: $ping_latency"
 bashio::log.info "Server name: $used_server_name"
+bashio::log.info "Server location: $used_server_location"
 bashio::log.info "Server id: $used_server_id"
 bashio::log.info "Server country: $used_server_country"
 bashio::log.info "--------- ---------"
 
-post_result "download" "Mbit/s" $down_load_speed $used_server_id "$used_server_name" "$used_server_country" $down_bytes
-post_result "upload" "Mbit/s" $up_load_speed $used_server_id "$used_server_name" "$used_server_country" $up_bytes
-post_result "ping" "ms" $ping_latency $used_server_id "$used_server_name" "$used_server_country"
+post_result "download" "Mbit/s" $down_load_speed $used_server_id "$used_server_name" "$used_server_location" "$used_server_country" $down_bytes
+post_result "upload" "Mbit/s" $up_load_speed $used_server_id "$used_server_name" "$used_server_location" "$used_server_country" $up_bytes
+post_result "ping" "ms" $ping_latency $used_server_id "$used_server_name" "$used_server_location" "$used_server_country"
