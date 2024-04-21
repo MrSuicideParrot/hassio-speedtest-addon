@@ -1,7 +1,4 @@
 ## What’s changed
-
-## ✨ New features
-* Add attributes to each measurement to mimic the behavior of the builtin speed-test automation.
-
 ## 🐛 Bug fixes
-* Remove unnecessary friendly-name definition.
+* Properly escape country name and location in the attributes of measurements (#9).
+*  Stop overwriting custom entity icons (#15). 
